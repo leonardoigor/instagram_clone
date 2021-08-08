@@ -33,14 +33,14 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          HistoryContent(size: _size, presenter: presenter),
-          SizedBox(
-            height: _size.height - 206,
-            child: FeedWidgetListViewWidget(presenter: presenter),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            HistoryContent(size: _size, presenter: presenter),
+            FeedWidgetListViewWidget(presenter: presenter),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomnavigationCustomWidget(size: _size),
     );
@@ -61,7 +61,9 @@ class HistoryContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 76,
+      color: Colors.black,
+      padding: EdgeInsets.only(top: 5),
+      height: 110,
       width: _size.width,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -73,25 +75,38 @@ class HistoryContent extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                 ),
-                width: 40,
-                height: 40,
+                width: 66,
+                height: 66,
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50.0),
-                        child: Image.network(
-                          e.urlImg,
-                          fit: BoxFit.cover,
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.transparent),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.red,
+                            Colors.purple,
+                          ],
+                        ),
+                      ),
+                      child: SizedBox(
+                        width: 66,
+                        height: 66,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.network(
+                            e.urlImg,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
                     Text(
-                      e.name,
+                      e.name.substring(0, 8),
                       style: TextStyle(
                         fontSize: 10,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -114,7 +129,7 @@ class FeedWidgetListViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         ...presenter.mapFeedItem().map((e) => FeedItemWidget(item: e))
       ],
@@ -135,7 +150,7 @@ class BottomnavigationCustomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      height: 50,
+      height: 30,
       child: Center(
         child: SizedBox(
           width: _size.width * .9,
@@ -144,27 +159,27 @@ class BottomnavigationCustomWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.home,
-                size: 50,
+                size: 30,
                 color: Colors.white,
               ),
               Icon(
                 Icons.search,
-                size: 50,
+                size: 30,
                 color: Colors.white,
               ),
               Icon(
                 Icons.play_circle_outline,
-                size: 50,
+                size: 30,
                 color: Colors.white,
               ),
               Icon(
                 Icons.local_mall_outlined,
-                size: 50,
+                size: 30,
                 color: Colors.white,
               ),
               Icon(
                 Icons.account_circle_outlined,
-                size: 50,
+                size: 30,
                 color: Colors.white,
               ),
             ],
@@ -186,6 +201,7 @@ class FeedItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       margin: EdgeInsets.only(top: item.id == 1 ? 0 : 20),
       color: Colors.black,
       height: _size.height - 100,
@@ -197,13 +213,14 @@ class FeedItemWidget extends StatelessWidget {
           ContentFeedItemWidget(size: _size, item: item),
           const SizedBox(height: 5),
           SizedBox(
-            width: 100,
+            width: 80,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.favorite_border, color: Colors.white, size: 30),
-                Icon(Icons.mode_comment, color: Colors.white, size: 30),
-                Icon(Icons.send, color: Colors.white, size: 30),
+                Icon(Icons.favorite_border, color: Colors.white, size: 20),
+                Icon(Icons.mode_comment_outlined,
+                    color: Colors.white, size: 20),
+                Icon(Icons.send_outlined, color: Colors.white, size: 20),
               ],
             ),
           ),
