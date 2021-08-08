@@ -1,7 +1,8 @@
+import 'package:app/main/routesEnum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'factory/pages/login/login.dart';
+import 'factory/pages/pages.dart';
 
 void main() {
   runApp(App());
@@ -19,7 +20,15 @@ class App extends StatelessWidget {
       navigatorObservers: [routeObserver],
       getPages: [
         GetPage(
-            name: '/login', page: makeLoginPage, transition: Transition.fade),
+          name: Routers.login,
+          page: makeLoginPage,
+          transition: Transition.fade,
+        ),
+        GetPage(
+          name: Routers.home,
+          page: makeHomePage,
+          transition: Transition.fade,
+        ),
       ],
     );
   }
