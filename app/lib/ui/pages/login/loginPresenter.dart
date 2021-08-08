@@ -7,4 +7,6 @@ abstract class LoginPresenter {
 
   Future<void> login();
   Future<void> auth();
+  void onEmailText(String email);
+  void onPassText(String pass);
 }

@@ -21,4 +21,20 @@ class GetxLoginPresenter extends LoginPresenter {
 
   @override
   Stream<UserDataEntity> get user => _user.stream;
+
+  @override
+  void onEmailText(String email) {
+    UserDataEntity userData = new UserDataEntity();
+    userData.userdata = email;
+    userData.passworddata = this._user.value.passworddata;
+    this._user.value = userData;
+  }
+
+  @override
+  void onPassText(String pass) {
+    UserDataEntity userData = new UserDataEntity();
+    userData.userdata = this._user.value.userdata;
+    userData.passworddata = pass;
+    this._user.value = userData;
+  }
 }
