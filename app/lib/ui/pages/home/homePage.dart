@@ -33,47 +33,141 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
+      body: Column(
         children: [
-          ...presenter.mapFeedItem().map((e) => FeedItemWidget(item: e))
+          HistoryContent(size: _size, presenter: presenter),
+          SizedBox(
+            height: _size.height - 206,
+            child: FeedWidgetListViewWidget(presenter: presenter),
+          ),
         ],
       ),
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        height: 50,
-        child: Center(
-          child: SizedBox(
-            width: _size.width * .9,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.home,
-                  size: 50,
-                  color: Colors.white,
+      bottomNavigationBar: BottomnavigationCustomWidget(size: _size),
+    );
+  }
+}
+
+class HistoryContent extends StatelessWidget {
+  const HistoryContent({
+    Key? key,
+    required Size size,
+    required this.presenter,
+  })  : _size = size,
+        super(key: key);
+
+  final Size _size;
+  final HomePresenter presenter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 76,
+      width: _size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: presenter
+            .mapHistoryItem()
+            .map(
+              (e) => Container(
+                margin: EdgeInsets.only(left: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
                 ),
-                Icon(
-                  Icons.search,
-                  size: 50,
-                  color: Colors.white,
+                width: 40,
+                height: 40,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: Image.network(
+                          e.urlImg,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      e.name,
+                      style: TextStyle(
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.play_circle_outline,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Icon(
-                  Icons.local_mall_outlined,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Icon(
-                  Icons.account_circle_outlined,
-                  size: 50,
-                  color: Colors.white,
-                ),
-              ],
-            ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+class FeedWidgetListViewWidget extends StatelessWidget {
+  const FeedWidgetListViewWidget({
+    Key? key,
+    required this.presenter,
+  }) : super(key: key);
+
+  final HomePresenter presenter;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        ...presenter.mapFeedItem().map((e) => FeedItemWidget(item: e))
+      ],
+    );
+  }
+}
+
+class BottomnavigationCustomWidget extends StatelessWidget {
+  const BottomnavigationCustomWidget({
+    Key? key,
+    required Size size,
+  })  : _size = size,
+        super(key: key);
+
+  final Size _size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      height: 50,
+      child: Center(
+        child: SizedBox(
+          width: _size.width * .9,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                Icons.home,
+                size: 50,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.search,
+                size: 50,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.play_circle_outline,
+                size: 50,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.local_mall_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.account_circle_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+            ],
           ),
         ),
       ),
