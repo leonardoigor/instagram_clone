@@ -1,0 +1,1 @@
+export './getxLoginPresenter.dart';

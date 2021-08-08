@@ -2,6 +2,7 @@ import 'package:app/domain/entities/entities.dart';
 
 abstract class LoginPresenter {
   Stream<bool> get isLoading;
+  Stream<bool> get isAuthentic;
 
   Stream<UserDataEntity> get user;
 

@@ -7,12 +7,12 @@ class UserDataEntity {
   String? get passworddata => _password;
 
   set passworddata(String? password) {
-    password = password;
+    this._password = password;
   }
 
   String? get userdata => _user;
 
-  set userdata(String? user) => user = user;
+  set userdata(String? user) => this._user = user;
 
   Map<String, dynamic> toMap() {
     return {
