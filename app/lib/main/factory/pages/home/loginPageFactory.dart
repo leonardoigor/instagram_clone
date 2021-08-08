@@ -1,4 +1,8 @@
 import 'package:app/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 
-Widget makeHomePage() => new HomePage();
+import '../pages.dart';
+
+Widget makeHomePage() => new HomePage(
+      presenter: makeLoginPresent(),
+    );
