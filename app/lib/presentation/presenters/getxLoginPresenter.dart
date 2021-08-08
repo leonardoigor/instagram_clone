@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:app/domain/entities/userData.dart';
+import 'package:app/main/routesEnum.dart';
 import 'package:app/ui/pages/pages.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class GetxLoginPresenter extends LoginPresenter {
   final _isLoading = Rx<bool>();
@@ -24,6 +23,8 @@ class GetxLoginPresenter extends LoginPresenter {
       this._isLoading.value = true;
       await Future.delayed(Duration(seconds: 2));
       this._isLoading.value = false;
+
+      Get.offNamed(Routers.home);
     } else {
       this._isLoading.value = false;
       NullThrownError();
